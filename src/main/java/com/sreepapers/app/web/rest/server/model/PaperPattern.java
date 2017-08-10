@@ -30,10 +30,10 @@ public class PaperPattern implements Serializable
 	private String paperPatternCode;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy= "paperPattern")
-	private List<PatternSubjectRecord> subjectRules = new ArrayList<PatternSubjectRecord>();
+	private List<PatternSubjectRecord> subjectRules = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "paperPattern")
-	private Set<Exam> exams = new HashSet<Exam>();
+	private Set<Exam> exams = new HashSet<>();
 	
 	public List<PatternSubjectRecord> getSubjectRules() {
 		return subjectRules;
@@ -64,8 +64,8 @@ public class PaperPattern implements Serializable
 	}
 
 	public void setExams(Set<Exam> exams) {
-		if(exams!=null && exams.size()>0){
-			Set<Exam> dupExams = new HashSet<Exam>();
+		if(exams!=null && exams.isEmpty()){
+			Set<Exam> dupExams = new HashSet<>();
 			for(Exam exam : exams){
 				exam.setPaperPattern(this);
 				dupExams.add(exam);

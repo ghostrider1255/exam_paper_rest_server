@@ -2,6 +2,8 @@ package com.sreepapers.app.web.rest.server.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,56 +15,77 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sreepapers.app.web.rest.server.jpa.repository.ExamRepository;
 import com.sreepapers.app.web.rest.server.model.Exam;
 import com.sreepapers.app.web.rest.server.service.url.ExamUrl;
 
 @RestController(value="/examAction")
+//@RestController
 public class ExamController {
 
+	private static Logger log = LoggerFactory.getLogger(ExamController.class);
 	@Autowired
 	private ExamRepository examRepository;
 	
-	@GetMapping(ExamUrl.GET_EXAM)
+	@GetMapping(path=ExamUrl.GET_EXAM)
 	public ResponseEntity<Exam> getExamById(@PathVariable("id") Long id){
 		Exam exam = examRepository.findOne(id);
-		return new ResponseEntity<Exam>(exam,HttpStatus.OK);
+		if(log.isDebugEnabled()){
+			log.debug("returning exam object with examDetails:{}",exam);
+		}
+		else{
+			log.info("returning exam object with examId:{}",id);
+		}
+		return new ResponseEntity<>(exam,HttpStatus.OK);
 	}
 	
-	@GetMapping(ExamUrl.GET_EXAMS)
+	@GetMapping(path=ExamUrl.GET_EXAMS)
 	public ResponseEntity<List<Exam>> getAllExams(){
 		List<Exam> examList = examRepository.findAll();
-		return new ResponseEntity<List<Exam>>(examList, HttpStatus.OK);
+		if(log.isDebugEnabled()){
+			log.debug("returning exams List of length:{}",examList.size());
+		}
+		else{
+			log.info("returning exams list");
+		}
+		return new ResponseEntity<>(examList, HttpStatus.OK);
 	}
 	
-	@PostMapping(ExamUrl.SAVE_EXAM)
-	public ResponseEntity<Void> saveExam(@RequestBody Exam exam, UriComponentsBuilder builder){
+	@PostMapping(path=ExamUrl.SAVE_EXAM)
+	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam){
 		Exam newExam = examRepository.save(exam);
 		if(newExam == null){
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			log.error("error saving exam object with details:{}",exam);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path(ExamUrl.GET_EXAM).buildAndExpand(newExam.getExamId()).toUri());
-		
-		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
+		if(log.isDebugEnabled()){
+			log.debug("saved exam object with details:{}",newExam);
+		}
+		else{
+			log.info("saved exam object");
+		}		
+		return new ResponseEntity<>(newExam,headers,HttpStatus.CREATED);
 	}
 	
-	@PutMapping(ExamUrl.UPDATE_EXAM)
+	@PutMapping(path=ExamUrl.UPDATE_EXAM)
 	public ResponseEntity<Exam> updateExam(@RequestBody Exam exam){
 		examRepository.save(exam);
-		
-		return new ResponseEntity<Exam>(exam,HttpStatus.OK);
+		if(log.isDebugEnabled()){
+			log.debug("updated exam object with details:{}",exam);
+		}
+		else{
+			log.info("updated exam object");
+		}
+		return new ResponseEntity<>(exam,HttpStatus.OK);
 	}
 	
-	@DeleteMapping(ExamUrl.DELETE_EXAM)
+	@DeleteMapping(path=ExamUrl.DELETE_EXAM)
 	public ResponseEntity<Void> deleteExam(@PathVariable("id") Long id){
 		examRepository.delete(id);
-		
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		log.info("deleted exam object:{}",id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
-
 }

@@ -16,6 +16,5 @@ public interface ExamQuestionRepository extends CrudRepository<ExamQuestion, Lon
 	public long count();
 	public void delete(ExamQuestion examQuestion);
 	public boolean exists(Long examQuestionId);
-	//public ExamQuestion update(ExamQuestion examQuestion);
 
 }

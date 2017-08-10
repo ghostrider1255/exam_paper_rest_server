@@ -14,5 +14,4 @@ public interface QuestionRepository extends CrudRepository<Question, Long>{
 	public long count();
 	public void delete(Long questionid);
 	public boolean exists(Long questionId);
-	//public Question update(Question question);
 }

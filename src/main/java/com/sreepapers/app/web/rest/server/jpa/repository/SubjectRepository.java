@@ -13,5 +13,4 @@ public interface SubjectRepository extends CrudRepository<Subject, Long>{
 	public long count();
 	public void delete(Long subjectId);
 	public boolean exists(Long subjectId);
-	//public Subject update(Subject subject);
 }

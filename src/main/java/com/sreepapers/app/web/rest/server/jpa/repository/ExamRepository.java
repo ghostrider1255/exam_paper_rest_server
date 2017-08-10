@@ -15,5 +15,4 @@ public interface ExamRepository extends CrudRepository<Exam, Long>{
 	public long count();
 	public void delete(Long examId);
 	public boolean exists(Long examId);
-	//public Exam update(Exam exam);
 }

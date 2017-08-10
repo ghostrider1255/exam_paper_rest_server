@@ -13,5 +13,4 @@ public interface ResultPatternRepository extends CrudRepository<ResultPattern, L
 	public long count();
 	public void delete(Long resultPatternId);
 	public boolean exists(Long resultPatternId);
-	//public ResultPattern update(ResultPattern resultPattern);
 }

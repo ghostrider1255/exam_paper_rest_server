@@ -43,4 +43,8 @@ public class MyImage implements Serializable
 		this.imageData = imageData;
 	}
 	
+	@Override
+	public String toString(){
+		return "MyImage[imageTitile="+this.imageTitle+"]";
+	}
 }

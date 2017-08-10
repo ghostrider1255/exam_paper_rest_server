@@ -28,39 +28,39 @@ public class ExamQuestioinController {
 	@GetMapping(ExamQuestionUrl.GET_EXAM_QUESTION)
 	public ResponseEntity<ExamQuestion> getUserById(@PathVariable("id") Long id){
 		ExamQuestion examQuestion = examQuestionRepository.findOne(id);
-		return new ResponseEntity<ExamQuestion>(examQuestion,HttpStatus.OK);
+		return new ResponseEntity<>(examQuestion,HttpStatus.OK);
 	}
 	
 	@GetMapping(ExamQuestionUrl.GET_EXAM_QUESTIONS)
 	public ResponseEntity<List<ExamQuestion>> getAllExamQuestions(){
 		List<ExamQuestion> examQuestionList = examQuestionRepository.findAll();
-		return new ResponseEntity<List<ExamQuestion>>(examQuestionList, HttpStatus.OK);
+		return new ResponseEntity<>(examQuestionList, HttpStatus.OK);
 	}
 	
 	@PostMapping(ExamQuestionUrl.SAVE_EXAM_QUESTION)
 	public ResponseEntity<Void> saveExamQuestion(@RequestBody ExamQuestion examQuestion, UriComponentsBuilder builder){
 		ExamQuestion newExamQuestion = examQuestionRepository.save(examQuestion);
 		if(newExamQuestion == null){
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path(ExamQuestionUrl.GET_EXAM_QUESTION).buildAndExpand(newExamQuestion.getExamQuestionId()).toUri());
 		
-		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
+		return new ResponseEntity<>(headers,HttpStatus.CREATED);
 	}
 	
 	@PutMapping(ExamQuestionUrl.UPDATE_EXAM_QUESTION)
 	public ResponseEntity<ExamQuestion> updateExamQuestion(@RequestBody ExamQuestion examQuestion){
 		examQuestionRepository.save(examQuestion);
 		
-		return new ResponseEntity<ExamQuestion>(examQuestion,HttpStatus.OK);
+		return new ResponseEntity<>(examQuestion,HttpStatus.OK);
 	}
 	
 	@DeleteMapping(ExamQuestionUrl.DELETE_EXAM_QUESTION)
 	public ResponseEntity<Void> deleteExamQuestion(@PathVariable("id") Long id){
 		examQuestionRepository.delete(id);
 		
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

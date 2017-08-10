@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sreepapers.app.web.rest.server.jpa.repository.UserRepository;
 import com.sreepapers.app.web.rest.server.model.User;
-import com.sreepapers.app.web.rest.server.service.url.UrlUser;
+import com.sreepapers.app.web.rest.server.service.url.UserUrl;
 
 @RestController(value="/userAction")
 public class UserController {
@@ -25,43 +25,42 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@GetMapping(UrlUser.GET_USER)
+	@GetMapping(UserUrl.GET_USER)
 	public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
 		User user = userRepository.findOne(id);
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
-	@GetMapping(UrlUser.GET_USERS_LIST)
+	@GetMapping(UserUrl.GET_USERS_LIST)
 	public ResponseEntity<List<User>> getAllUsers(){
 		List<User> usersList = userRepository.findAll();
-		return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
+		return new ResponseEntity<>(usersList, HttpStatus.OK);
 	}
 	
-	@PostMapping(UrlUser.SAVE_USER)
+	@PostMapping(UserUrl.SAVE_USER)
 	public ResponseEntity<Void> saveUser(@RequestBody User user, UriComponentsBuilder builder){
 		User newUser = userRepository.save(user);
 		if(newUser == null){
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path(UrlUser.GET_USER).buildAndExpand(user.getUserId()).toUri());
+		headers.setLocation(builder.path(UserUrl.GET_USER).buildAndExpand(user.getUserId()).toUri());
 		
-		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
+		return new ResponseEntity<>(headers,HttpStatus.CREATED);
 	}
 	
-	@PutMapping(UrlUser.UPDATE_USER)
+	@PutMapping(UserUrl.UPDATE_USER)
 	public ResponseEntity<User> updateUser(@RequestBody User user){
 		userRepository.save(user);
 		
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
-	@DeleteMapping(UrlUser.DELETE_USER)
+	@DeleteMapping(UserUrl.DELETE_USER)
 	public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
 		userRepository.delete(id);
 		
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
 }

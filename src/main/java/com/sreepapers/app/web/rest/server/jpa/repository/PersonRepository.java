@@ -14,5 +14,4 @@ public interface PersonRepository extends CrudRepository<Person, Long>{
 	public long count();
 	public void delete(Long personId);
 	public boolean exists(Long personId);
-	//public Person update(Person person);
 }

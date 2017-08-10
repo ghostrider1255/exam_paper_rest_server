@@ -14,5 +14,4 @@ public interface PaperPatternRepository extends CrudRepository<PaperPattern, Lon
 	public long count();
 	public void delete(Long paperPatternId);
 	public boolean exists(Long paperPatternId);
-	//public PaperPattern update(PaperPattern paperPattern);
 }

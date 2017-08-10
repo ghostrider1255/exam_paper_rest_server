@@ -41,7 +41,7 @@ public class Question implements Serializable
 	private boolean status;
 	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	@JoinTable(name = "QSUBJECTTAG", joinColumns = { @JoinColumn (name = "questionId")}, inverseJoinColumns = { @JoinColumn(name = "subjectId")})
-	private Set<Subject> subjects = new HashSet<Subject>();
+	private Set<Subject> subjects = new HashSet<>();
 	@ManyToOne
 	private ExamQuestion examQuestion;
 	

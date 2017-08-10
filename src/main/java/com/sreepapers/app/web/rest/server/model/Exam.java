@@ -39,7 +39,7 @@ public class Exam implements Serializable{
 	private PaperPattern paperPattern;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="exam", fetch = FetchType.LAZY)
 	@MapKeyColumn(name="subjectType",nullable=true)
-	private Map<String,ExamQuestion> examQuestions = new HashMap<String,ExamQuestion>();
+	private Map<String,ExamQuestion> examQuestions = new HashMap<>();
 	@OneToOne(cascade = CascadeType.ALL)
 	private ResultPattern resultPattern;
 	
@@ -77,12 +77,12 @@ public class Exam implements Serializable{
 		return examQuestions;
 	}
 	public void setExamQuestions(Map<String,ExamQuestion> examQuestions) {
-		Map<String,ExamQuestion> dupExamQuestions = new HashMap<String,ExamQuestion>();
-		if(examQuestions!=null & examQuestions.size()>0){
+		Map<String,ExamQuestion> dupExamQuestions = new HashMap<>();
+		if(examQuestions!=null && examQuestions.size()>0){
 			Iterator<String> iterator = examQuestions.keySet().iterator();
 			while(iterator.hasNext())
 			{
-				String key = (String)iterator.next();
+				String key = iterator.next();
 				ExamQuestion dupObje = examQuestions.get(key);
 				dupObje.setExam(this);
 				dupExamQuestions.put(key, dupObje);

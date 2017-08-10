@@ -15,5 +15,4 @@ public interface PatternSubjectRecordRepository extends CrudRepository<PatternSu
 	public long count();
 	public void delete(Long patternSubjectRecordId);
 	public boolean exists(Long patternSubRecordId);
-	//public PatternSubjectRecord update(PatternSubjectRecord patternSubRecord);
 }

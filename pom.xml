@@ -11,7 +11,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<java.version>1.8</java.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 		<start-class>com.sreepapers.app.web.rest.server.SreePapersRestServer</start-class>
-		<com.sreepapers.app.web.rest.server.service>**/*.java</com.sreepapers.app.web.rest.server.service>
+		<someModule.skip.tests>false</someModule.skip.tests>
+    	<skipTests>${someModule.skip.tests}</skipTests>
+    	<someModule.test.excludes>**/*.java.bogus</someModule.test.excludes>
 	</properties>
 	
 	<parent>

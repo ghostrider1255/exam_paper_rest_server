@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,7 +20,8 @@ import com.sreepapers.app.web.rest.server.jpa.repository.ExamQuestionRepository;
 import com.sreepapers.app.web.rest.server.model.ExamQuestion;
 import com.sreepapers.app.web.rest.server.service.url.ExamQuestionUrl;
 
-@RestController(value="/examQuestionAction")
+@RestController
+@RequestMapping(value="/examQuestionAction")
 public class ExamQuestioinController {
 
 	@Autowired

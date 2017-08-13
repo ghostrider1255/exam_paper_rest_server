@@ -50,4 +50,8 @@ public class Subject implements Serializable{
 		this.subjectStatus = subjectStatus;
 	}
 	
+	@Override
+	public String toString(){
+		return "Subject[subjectCode="+this.subjectCode+", subjectDesc="+this.subjectDesc+", subjectStatus="+this.subjectStatus+"]";
+	}
 }

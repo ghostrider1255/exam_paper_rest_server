@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sreepapers.app.web.rest.server.jpa.repository.ResultPatternRepository;
 import com.sreepapers.app.web.rest.server.model.ResultPattern;
 import com.sreepapers.app.web.rest.server.service.url.ResultPatternUrl;
 
-@RestController(value="/resultPatternAction")
+@RestController
+@RequestMapping(value="/resultPatternAction")
 public class ResultPatternController {
 
 	private static Logger log = LoggerFactory.getLogger(ResultPatternController.class);

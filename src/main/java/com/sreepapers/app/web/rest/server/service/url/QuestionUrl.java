@@ -10,5 +10,7 @@ public class QuestionUrl {
 	public static final String DELETE_QUESTION ="deleteQuestion/{id}";
 	public static final String GET_QUESTION ="question/{id}";
 	public static final String UPDATE_QUESTION ="updateQuestion/{id}";
+	
+	public static final String GET_QUESTIONS_BY_SUBJECT ="questions/{subjectId}";
 
 }

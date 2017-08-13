@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sreepapers.app.web.rest.server.jpa.repository.QuestionRepository;
 import com.sreepapers.app.web.rest.server.model.Question;
 import com.sreepapers.app.web.rest.server.service.url.QuestionUrl;
 
-@RestController(value="/questionAction")
+@RestController
+@RequestMapping(value="/questionAction")
 public class QuestionController {
 
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
@@ -42,6 +44,18 @@ public class QuestionController {
 	@GetMapping(path=QuestionUrl.GET_QUESTIONS_LIST)
 	public ResponseEntity<List<Question>> getAllQuestions(){
 		List<Question> questionsList = questionRepository.findAll();
+		if(log.isDebugEnabled()){
+			log.debug("returning questions List of length:{}",questionsList.size());
+		}
+		else{
+			log.info("returning questions list");
+		}
+		return new ResponseEntity<>(questionsList, HttpStatus.OK);
+	}
+	
+	@GetMapping(path=QuestionUrl.GET_QUESTIONS_BY_SUBJECT)
+	public ResponseEntity<List<Object>> getQuestionsBySubject(@PathVariable("subjectId") Long subjectId){
+		List<Object> questionsList = questionRepository.findBySubjectsId(subjectId);
 		if(log.isDebugEnabled()){
 			log.debug("returning questions List of length:{}",questionsList.size());
 		}
